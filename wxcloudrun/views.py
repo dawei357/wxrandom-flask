@@ -1,3 +1,4 @@
+import random
 from datetime import datetime
 from flask import render_template, request
 from run import app
@@ -64,3 +65,17 @@ def get_count():
     """
     counter = Counters.query.filter(Counters.id == 1).first()
     return make_succ_response(0) if counter is None else make_succ_response(counter.count)
+
+
+@app.route('/api/random', methods=['GET'])
+def get_random():
+    # 获取请求体参数
+    params = request.get_json()
+    min = params['min']
+    max = params['max']
+    cnt = params['cnt']
+    result = []
+    for i in range(cnt):
+        result.append(random.randint(min, max))
+    result_str = "  ".join(result)
+    return make_succ_response(result_str)
