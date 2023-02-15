@@ -5,6 +5,9 @@ from run import app
 from wxcloudrun.dao import delete_counterbyid, query_counterbyid, insert_counter, update_counterbyid
 from wxcloudrun.model import Counters
 from wxcloudrun.response import make_succ_empty_response, make_succ_response, make_err_response
+import logging
+logger = logging.getLogger('log')
+
 
 
 @app.route('/')
@@ -74,10 +77,10 @@ def get_random():
     min = params['min']
     max = params['max']
     cnt = params['cnt']
-    print(min, max, cnt)
+    logger.info("{} {} {}".format(min, max, cnt))
     result = []
     for i in range(cnt):
         result.append(random.randint(min, max))
     result_str = "  ".join(result)
-    print(result_str)
+    logger.info("result_str{}".format(result_str))
     return make_succ_response(result_str)
