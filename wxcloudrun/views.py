@@ -74,9 +74,9 @@ def get_count():
 def get_random():
     # 获取请求体参数
     params = request.get_json()
-    min = params['min']
-    max = params['max']
-    cnt = params['cnt']
+    min = int(params['min'])
+    max = int(params['max'])
+    cnt = int(params['cnt'])
     result = []
     for i in range(cnt):
         result.append(str(random.randint(min, max)))
