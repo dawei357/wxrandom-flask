@@ -74,8 +74,10 @@ def get_random():
     min = params['min']
     max = params['max']
     cnt = params['cnt']
+    print(min, max, cnt)
     result = []
     for i in range(cnt):
         result.append(random.randint(min, max))
     result_str = "  ".join(result)
+    print(result_str)
     return make_succ_response(result_str)
