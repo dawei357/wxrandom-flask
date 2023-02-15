@@ -77,10 +77,8 @@ def get_random():
     min = params['min']
     max = params['max']
     cnt = params['cnt']
-    logger.info("{} {} {}".format(min, max, cnt))
     result = []
     for i in range(cnt):
-        result.append(random.randint(min, max))
+        result.append(str(random.randint(min, max)))
     result_str = "  ".join(result)
-    logger.info("result_str{}".format(result_str))
     return make_succ_response(result_str)
