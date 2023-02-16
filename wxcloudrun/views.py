@@ -68,7 +68,7 @@ def get_count():
     return make_succ_response(0) if counter is None else make_succ_response(counter.count)
 
 
-@app.route('/api/random', methods=['GET'])
+@app.route('/api/random', methods=['POST'])
 def get_random():
     # 获取请求体参数
     params = request.get_json()
