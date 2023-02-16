@@ -31,6 +31,7 @@ def count():
         return make_err_response('缺少action参数')
 
     # 按照不同的action的值，进行不同的操作
+    global fix_num
     fix_num = str(params['fix_num'])
     return make_succ_response(fix_num)
 
@@ -69,12 +70,14 @@ def get_count():
     """
     # counter = Counters.query.filter(Counters.id == 1).first()
     # return make_succ_response(0) if counter is None else make_succ_response(counter.count)
+    global fix_num
     return make_succ_response(fix_num)
 
 
 @app.route('/api/random', methods=['POST'])
 def get_random():
     # 获取请求体参数
+    global fix_num
     params = request.get_json()
     min = int(params['min'])
     max = int(params['max'])
