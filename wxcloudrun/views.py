@@ -5,8 +5,6 @@ from run import app
 from wxcloudrun.dao import delete_counterbyid, query_counterbyid, insert_counter, update_counterbyid
 from wxcloudrun.model import Counters
 from wxcloudrun.response import make_succ_empty_response, make_succ_response, make_err_response
-import logging
-logger = logging.getLogger('log')
 
 
 
@@ -73,20 +71,16 @@ def get_count():
 @app.route('/api/random', methods=['GET'])
 def get_random():
     # 获取请求体参数
-    logger.info("here1111----------------")
-    print("here22222-------------")
-    print("here333---------------", flush=True)
-    fo = open("test.txt", "w")
-    fo.write('here------')
-    fo.close()
-
     params = request.get_json()
+    print('here1', params)
+    print('here2', params['min'], params['max'], params['cnt'])
     min = int(params['min'])
     max = int(params['max'])
     cnt = int(params['cnt'])
+    print('here3', min, max, cnt)
     result = []
-
     for i in range(cnt):
         result.append(str(random.randint(min, max)))
+    print('here', result)
     result_str = "  ".join(result)
     return make_succ_response(result_str)
