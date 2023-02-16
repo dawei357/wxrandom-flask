@@ -6,6 +6,7 @@ from wxcloudrun.dao import delete_counterbyid, query_counterbyid, insert_counter
 from wxcloudrun.model import Counters
 from wxcloudrun.response import make_succ_empty_response, make_succ_response, make_err_response
 
+fix_num = '-1'
 
 
 @app.route('/')
@@ -26,14 +27,15 @@ def count():
     params = request.get_json()
 
     # 检查action参数
-    if 'action' not in params:
+    if 'fix_num' not in params:
         return make_err_response('缺少action参数')
 
     # 按照不同的action的值，进行不同的操作
-    action = params['action']
+    fix_num = str(params['fix_num'])
+    return make_succ_response(fix_num)
 
     # 执行自增操作
-    if action == 'inc':
+    '''if action == 'inc':
         counter = query_counterbyid(1)
         if counter is None:
             counter = Counters()
@@ -57,6 +59,7 @@ def count():
     # action参数错误
     else:
         return make_err_response('action参数错误')
+    '''
 
 
 @app.route('/api/count', methods=['GET'])
@@ -64,23 +67,25 @@ def get_count():
     """
     :return: 计数的值
     """
-    counter = Counters.query.filter(Counters.id == 1).first()
-    return make_succ_response(0) if counter is None else make_succ_response(counter.count)
+    # counter = Counters.query.filter(Counters.id == 1).first()
+    # return make_succ_response(0) if counter is None else make_succ_response(counter.count)
+    return make_succ_response(fix_num)
 
 
 @app.route('/api/random', methods=['POST'])
 def get_random():
     # 获取请求体参数
     params = request.get_json()
-    print('here1', params)
-    print('here2', params['min'], params['max'], params['cnt'])
     min = int(params['min'])
     max = int(params['max'])
     cnt = int(params['cnt'])
-    print('here3', min, max, cnt)
     result = []
-    for i in range(cnt):
-        result.append(str(random.randint(min, max)))
-    print('here', result)
-    result_str = "  ".join(result)
+    if fix_num != '-1':
+        result.append(fix_num)
+
+    while len(result) < cnt:
+        num = str(random.randint(min, max))
+        if num not in result:
+            result.append(num)
+    result_str = "   ".join(result)
     return make_succ_response(result_str)
