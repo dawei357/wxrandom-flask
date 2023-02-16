@@ -73,15 +73,19 @@ def get_count():
 @app.route('/api/random', methods=['GET'])
 def get_random():
     # 获取请求体参数
+    logger.info("here1111----------------")
+    print("here22222-------------")
+    print("here333---------------", flush=True)
+    fo = open("test.txt", "w")
+    fo.write('here------')
+    fo.close()
+
     params = request.get_json()
     min = int(params['min'])
     max = int(params['max'])
     cnt = int(params['cnt'])
     result = []
-    print("here---------------", flush=True)
-    fo = open("test.txt", "w")
-    fo.write(params['min'])
-    fo.close()
+
     for i in range(cnt):
         result.append(str(random.randint(min, max)))
     result_str = "  ".join(result)
