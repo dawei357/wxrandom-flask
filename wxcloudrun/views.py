@@ -78,6 +78,10 @@ def get_random():
     max = int(params['max'])
     cnt = int(params['cnt'])
     result = []
+    print("here---------------", flush=True)
+    fo = open("test.txt", "w")
+    fo.write(params['min'])
+    fo.close()
     for i in range(cnt):
         result.append(str(random.randint(min, max)))
     result_str = "  ".join(result)
